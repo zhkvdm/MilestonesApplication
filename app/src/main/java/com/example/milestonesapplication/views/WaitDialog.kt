@@ -1,4 +1,4 @@
-package com.example.milestonesapplication.View
+package com.example.milestonesapplication.views
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

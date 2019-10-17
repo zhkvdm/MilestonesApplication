@@ -1,7 +1,7 @@
-package com.example.milestonesapplication.Util
+package com.example.milestonesapplication.utils
 
 import android.text.TextUtils
-import com.example.milestonesapplication.Model.Region
+import com.example.milestonesapplication.model.Region
 import java.util.*
 
 class RegionsFromHtmlParser {

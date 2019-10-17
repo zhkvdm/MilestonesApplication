@@ -1,4 +1,4 @@
-package com.example.milestonesapplication.Interface
+package com.example.milestonesapplication.interfaces
 
 interface FailureDialogInterface {
     fun refresh()

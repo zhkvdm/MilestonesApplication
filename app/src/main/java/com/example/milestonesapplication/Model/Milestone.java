@@ -1,64 +1,53 @@
-package com.example.milestonesapplication.Model;
+package com.example.milestonesapplication.model;
 
 import android.location.Location;
 
-import java.util.ArrayList;
+import com.google.android.gms.maps.model.LatLng;
 
 public class Milestone {
-    private ArrayList<String> balloonContentBody;
-    private String hintContent;
-    private String balloonContentHeader;
-    private String type;
-    private Location location;
+    private String name;
+    private String description;
+    private String locationString;
+    private LatLng location;
 
     public Milestone() {
     }
 
-    public Milestone(ArrayList<String> balloonContentBody, String hintContent, String balloonContentHeader, String type, Location location) {
-        this.balloonContentBody = balloonContentBody;
-        this.hintContent = hintContent;
-        this.balloonContentHeader = balloonContentHeader;
-        this.type = type;
+    public Milestone(String balloonContentBody, String description, LatLng location) {
+        this.name = balloonContentBody;
+        this.description = description;
         this.location = location;
     }
 
-    public ArrayList<String> getBalloonContentBody() {
-        return balloonContentBody;
+    public String getName() {
+        return name;
     }
 
-    public void setBalloonContentBody(ArrayList<String> balloonContentBody) {
-        this.balloonContentBody = balloonContentBody;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getHintContent() {
-        return hintContent;
+    public String getDescription() {
+        return description;
     }
 
-    public void setHintContent(String hintContent) {
-        this.hintContent = hintContent;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getBalloonContentHeader() {
-        return balloonContentHeader;
-    }
-
-    public void setBalloonContentHeader(String balloonContentHeader) {
-        this.balloonContentHeader = balloonContentHeader;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Location getLocation() {
+    public LatLng getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(LatLng location) {
         this.location = location;
+    }
+
+    public String getLocationString() {
+        return location.latitude + " " + location.longitude;
+    }
+
+    public void setLocationString(String locationString) {
+        this.locationString = locationString;
     }
 }

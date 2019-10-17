@@ -1,4 +1,4 @@
-package com.example.milestonesapplication.View
+package com.example.milestonesapplication.views
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import com.example.milestonesapplication.Interface.FailureDialogInterface
+import com.example.milestonesapplication.interfaces.FailureDialogInterface
 import com.example.milestonesapplication.R
 import com.example.milestonesapplication.databinding.FailureDialogLayoutBinding
 

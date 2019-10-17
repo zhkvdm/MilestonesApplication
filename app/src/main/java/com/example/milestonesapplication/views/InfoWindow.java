@@ -1,4 +1,4 @@
-package com.example.milestonesapplication.View;
+package com.example.milestonesapplication.views;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.milestonesapplication.R;
 import com.example.milestonesapplication.databinding.WindowInfoLayoutBinding;
+import com.example.milestonesapplication.model.Milestone;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,12 +37,12 @@ public class InfoWindow extends DialogFragment implements OnMapReadyCallback {
     private static final String ARG_DESCRIPTION = "description";
     private static final String ARG_LOCATION = "location";
 
-    public static InfoWindow newInstance(String title,
+    public static InfoWindow newInstance(String name,
                                          String description,
                                          LatLng location) {
         InfoWindow fragment = new InfoWindow();
         Bundle args = new Bundle();
-        args.putString(ARG_NAME, title);
+        args.putString(ARG_NAME, name);
         args.putString(ARG_DESCRIPTION, description);
         args.putParcelable(ARG_LOCATION, location);
         fragment.setArguments(args);
@@ -64,10 +65,7 @@ public class InfoWindow extends DialogFragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.window_info_layout, container, false);
-        binding.name.setText(name);
-        binding.description.setText(description);
-        String locationString = location.latitude + " " + location.longitude;
-        binding.location.setText(locationString);
+        binding.setMilestone(new Milestone(name, description, location));
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

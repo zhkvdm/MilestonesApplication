@@ -1,4 +1,4 @@
-package com.example.milestonesapplication.Activity;
+package com.example.milestonesapplication.activities;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,17 +9,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.milestonesapplication.Adapter.MarkerInfoViewAdapter;
-import com.example.milestonesapplication.Adapter.SpinnerAdapter;
-import com.example.milestonesapplication.Interface.FailureDialogInterface;
-import com.example.milestonesapplication.Model.Milestone;
-import com.example.milestonesapplication.Model.Region;
+import com.example.milestonesapplication.adapters.MarkerInfoViewAdapter;
+import com.example.milestonesapplication.adapters.SpinnerAdapter;
+import com.example.milestonesapplication.interfaces.FailureDialogInterface;
+import com.example.milestonesapplication.model.Milestone;
+import com.example.milestonesapplication.model.Region;
 import com.example.milestonesapplication.R;
-import com.example.milestonesapplication.Util.HttpProvider;
-import com.example.milestonesapplication.View.MilestoneMarker;
-import com.example.milestonesapplication.View.FailureDialog;
-import com.example.milestonesapplication.View.InfoWindow;
-import com.example.milestonesapplication.View.WaitDialog;
+import com.example.milestonesapplication.utils.HttpProvider;
+import com.example.milestonesapplication.views.MilestoneMarker;
+import com.example.milestonesapplication.views.FailureDialog;
+import com.example.milestonesapplication.views.InfoWindow;
+import com.example.milestonesapplication.views.WaitDialog;
 import com.example.milestonesapplication.databinding.ActivityMainBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -147,9 +147,7 @@ public class MainActivity extends AppCompatActivity implements
     private void outMilestoneToMap(Milestone milestone) {
         if (googleMap != null) {
             clusterManager.addItem(new MilestoneMarker(milestone));
-            builder.include(new LatLng(
-                    milestone.getLocation().getLatitude(),
-                    milestone.getLocation().getLongitude()));
+            builder.include(milestone.getLocation());
         }
     }
 

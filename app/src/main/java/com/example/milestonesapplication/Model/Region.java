@@ -1,4 +1,4 @@
-package com.example.milestonesapplication.Model;
+package com.example.milestonesapplication.model;
 
 public class Region {
     private String code;

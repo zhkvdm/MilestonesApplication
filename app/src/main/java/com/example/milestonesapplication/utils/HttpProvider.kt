@@ -1,11 +1,10 @@
-package com.example.milestonesapplication.Util
+package com.example.milestonesapplication.utils
 
 import android.app.Activity
 import android.os.AsyncTask
 import android.util.Log
-import com.example.milestonesapplication.Model.Milestone
-import com.example.milestonesapplication.Model.Region
-import com.example.milestonesapplication.View.FailureDialog
+import com.example.milestonesapplication.model.Milestone
+import com.example.milestonesapplication.model.Region
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.io.IOException
