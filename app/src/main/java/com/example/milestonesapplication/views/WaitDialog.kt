@@ -28,7 +28,7 @@ class WaitDialog : DialogFragment() {
     }
 
     companion object {
-        @kotlin.jvm.JvmField
+        @JvmField
         var TAG = InfoWindow::class.java.name
     }
 }

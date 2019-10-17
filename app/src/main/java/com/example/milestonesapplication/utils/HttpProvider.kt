@@ -2,7 +2,6 @@ package com.example.milestonesapplication.utils
 
 import android.app.Activity
 import android.os.AsyncTask
-import android.util.Log
 import com.example.milestonesapplication.model.Milestone
 import com.example.milestonesapplication.model.Region
 import org.jsoup.Jsoup
@@ -15,9 +14,7 @@ class HttpProvider(code: String) : AsyncTask<Void, Void, Void>() {
     private var regions = ArrayList<Region>()
     private var regionCode = code
 
-    //declare a delegate with type of protocol declared in this task
     private var httpProviderInterface: HttpProviderInterface? = null
-
 
     fun setDelegate(activity: Activity) {
         if (activity is HttpProviderInterface)
@@ -40,7 +37,6 @@ class HttpProvider(code: String) : AsyncTask<Void, Void, Void>() {
             else
                 Jsoup.connect("https://гибдд.рф/r/$regionCode/milestones").timeout(10 * 2000).get()
         } catch (e: IOException) {
-            Log.i("LOG_TAG", "IOException " + e.message)
             httpProviderInterface?.onTaskPostExecute(0)
             e.printStackTrace()
         }
@@ -51,7 +47,6 @@ class HttpProvider(code: String) : AsyncTask<Void, Void, Void>() {
                 milestones = MilestonesFromHtmlParser().parse(doc.html())
         } else {
             httpProviderInterface?.onTaskPostExecute(0)
-            Log.i("LOG_TAG", "Error")
         }
 
         return null

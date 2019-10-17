@@ -28,7 +28,6 @@ public class MarkerInfoViewAdapter implements GoogleMap.InfoWindowAdapter {
         MarkerInfoLayoutBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(layoutInflater.getContext()), R.layout.marker_info_layout, null, true);
         binding.title.setText(marker.getTitle());
-        binding.description.setText(marker.getSnippet());
         binding.executePendingBindings();
         return binding.getRoot();
     }

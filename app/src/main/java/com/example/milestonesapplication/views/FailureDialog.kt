@@ -34,7 +34,7 @@ class FailureDialog : DialogFragment() {
     }
 
     companion object {
-        @kotlin.jvm.JvmField
+        @JvmField
         var TAG = FailureDialog::class.java.name
     }
 

@@ -9,23 +9,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.milestonesapplication.R;
 import com.example.milestonesapplication.adapters.MarkerInfoViewAdapter;
 import com.example.milestonesapplication.adapters.SpinnerAdapter;
+import com.example.milestonesapplication.databinding.ActivityMainBinding;
 import com.example.milestonesapplication.interfaces.FailureDialogInterface;
 import com.example.milestonesapplication.model.Milestone;
 import com.example.milestonesapplication.model.Region;
-import com.example.milestonesapplication.R;
 import com.example.milestonesapplication.utils.HttpProvider;
-import com.example.milestonesapplication.views.MilestoneMarker;
 import com.example.milestonesapplication.views.FailureDialog;
 import com.example.milestonesapplication.views.InfoWindow;
+import com.example.milestonesapplication.views.MilestoneMarker;
 import com.example.milestonesapplication.views.WaitDialog;
-import com.example.milestonesapplication.databinding.ActivityMainBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
@@ -198,11 +197,11 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void refresh() {
-        if (binding.spinner.getAdapter() != null)
-            getData(regions.get(binding.spinner.getSelectedItemPosition()).getCode());
-        else
-            getData("all");
+        getData(binding.spinner.getAdapter() != null ?
+                regions.get(binding.spinner.getSelectedItemPosition()).getCode()
+                : "all");
     }
+
     private void showWaitDialog() {
         waitDialog = new WaitDialog();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

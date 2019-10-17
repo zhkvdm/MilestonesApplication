@@ -1,7 +1,5 @@
 package com.example.milestonesapplication.views;
 
-import android.text.TextUtils;
-
 import com.example.milestonesapplication.model.Milestone;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;

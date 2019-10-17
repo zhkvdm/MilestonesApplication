@@ -1,13 +1,10 @@
 package com.example.milestonesapplication.model;
 
-import android.location.Location;
-
 import com.google.android.gms.maps.model.LatLng;
 
 public class Milestone {
     private String name;
     private String description;
-    private String locationString;
     private LatLng location;
 
     public Milestone() {
@@ -48,6 +45,5 @@ public class Milestone {
     }
 
     public void setLocationString(String locationString) {
-        this.locationString = locationString;
     }
 }
