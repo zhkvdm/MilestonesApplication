@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MilestonesApplication</string>
+    <string name="title_activity_maps">Карта</string>
+    <string name="loading">Загрузка</string>
+    <string name="failure_message">Что-то пошло не так</string>
+    <string name="refresh">Обновить</string>
+    <string name="back">Назад</string>
+
+    <string name="title_name">Название</string>
+    <string name="title_description">Типы нарушений</string>
+    <string name="title_location">Координаты</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+</resources>
