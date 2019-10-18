@@ -1,6 +1,5 @@
 package com.example.milestonesapplication.utils
 
-import android.text.TextUtils
 import com.example.milestonesapplication.model.Region
 import java.util.*
 
@@ -8,32 +7,33 @@ class RegionsFromHtmlParser {
     private var regions = ArrayList<Region>()
 
     fun parse(http: String): ArrayList<Region> {
-        var res: String
+        val stringBuilder = StringBuilder(http)
         var firstIndex = 0
         var lastIndex = 0
 
         while (firstIndex >= 0) {
-            firstIndex = TextUtils.indexOf(http, "<option", lastIndex)
-            lastIndex = TextUtils.indexOf(http, "</option>", firstIndex)
+            firstIndex = stringBuilder.indexOf("<option", lastIndex)
+            lastIndex = stringBuilder.indexOf("</option>", firstIndex)
             if (firstIndex < 0 || lastIndex < 0) {
                 return regions
             }
-            res = TextUtils.substring(http, firstIndex, lastIndex)
-            regions.add(parseStruct(res))
+            regions.add(
+                    parseStruct(stringBuilder.substring(firstIndex, lastIndex)))
         }
         return regions
     }
 
     private fun parseStruct(structString: String): Region {
+        val stringBuilder = StringBuilder(structString)
         val region = Region()
 
-        var firstIndex = TextUtils.indexOf(structString, "value=\"")
-        var lastIndex = TextUtils.indexOf(structString, "\">", firstIndex)
-        region.code = TextUtils.substring(structString, firstIndex + 7, lastIndex)
+        var firstIndex = stringBuilder.indexOf("value=\"")
+        var lastIndex = stringBuilder.indexOf("\">", firstIndex)
+        region.code = stringBuilder.substring(firstIndex + 7, lastIndex)
 
         firstIndex = lastIndex
         lastIndex = structString.length
-        region.region = TextUtils.substring(structString, firstIndex + 2, lastIndex)
+        region.region = stringBuilder.substring(firstIndex + 2, lastIndex)
         if(region.region == "Российская Федерация")
             region.region = "Выберите регион"
 
