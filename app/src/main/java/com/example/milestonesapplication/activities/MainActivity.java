@@ -54,20 +54,13 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding.setParentView(this);
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         if (mapFragment == null) {
             return;
         }
-
-        binding.refreshButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (binding.spinner.getSelectedItemPosition() != 0)
-                    getData(regions.get(binding.spinner.getSelectedItemPosition()).getCode());
-            }
-        });
 
         mapFragment.getMapAsync(this);
 
@@ -79,9 +72,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onTaskPostExecute(int result) {
         dismissWaitDialog();
-        failureDialog = new FailureDialog();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        failureDialog.show(fragmentTransaction, FailureDialog.TAG);
+        showFailureDialog();
     }
 
     @Override
@@ -136,18 +127,11 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    void getData(String regionCode) {
-        showWaitDialog();
-        HttpProvider task = new HttpProvider(regionCode);
-        task.setDelegate(this);
-        task.execute();
-    }
-
-    private void outMilestoneToMap(Milestone milestone) {
-        if (googleMap != null) {
-            clusterManager.addItem(new MilestoneMarker(milestone));
-            builder.include(milestone.getLocation());
-        }
+    @Override
+    public void refresh() {
+        getData(binding.spinner.getAdapter() != null ?
+                regions.get(binding.spinner.getSelectedItemPosition()).getCode()
+                : "all");
     }
 
     @Override
@@ -195,11 +179,18 @@ public class MainActivity extends AppCompatActivity implements
         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 100));
     }
 
-    @Override
-    public void refresh() {
-        getData(binding.spinner.getAdapter() != null ?
-                regions.get(binding.spinner.getSelectedItemPosition()).getCode()
-                : "all");
+    void getData(String regionCode) {
+        showWaitDialog();
+        HttpProvider task = new HttpProvider(regionCode);
+        task.setDelegate(this);
+        task.execute();
+    }
+
+    private void outMilestoneToMap(Milestone milestone) {
+        if (googleMap != null) {
+            clusterManager.addItem(new MilestoneMarker(milestone));
+            builder.include(milestone.getLocation());
+        }
     }
 
     private void showWaitDialog() {
@@ -211,6 +202,12 @@ public class MainActivity extends AppCompatActivity implements
     private void dismissWaitDialog() {
         if (waitDialog != null && waitDialog.isAdded())
             waitDialog.dismiss();
+    }
+
+    private void showFailureDialog() {
+        failureDialog = new FailureDialog();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        failureDialog.show(fragmentTransaction, FailureDialog.TAG);
     }
 
     private void dismissFailureDialog() {

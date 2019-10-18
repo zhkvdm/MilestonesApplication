@@ -7,6 +7,9 @@
         <variable
             name="milestone"
             type="com.example.milestonesapplication.model.Milestone" />
+        <variable
+            name="parentView"
+            type="com.example.milestonesapplication.views.InfoWindow" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -82,6 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/back"
+            android:onClick="@{(view) -> parentView.dismiss()}"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

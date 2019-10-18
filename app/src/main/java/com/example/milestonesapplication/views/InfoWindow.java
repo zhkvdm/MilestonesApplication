@@ -58,7 +58,6 @@ public class InfoWindow extends DialogFragment implements OnMapReadyCallback {
             description = args.getString(ARG_DESCRIPTION);
             location = args.getParcelable(ARG_LOCATION);
         }
-
     }
 
     @Nullable
@@ -66,12 +65,7 @@ public class InfoWindow extends DialogFragment implements OnMapReadyCallback {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.window_info_layout, container, false);
         binding.setMilestone(new Milestone(name, description, location));
-        binding.backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
+        binding.setParentView(this);
 
         SupportMapFragment mapFragment = null;
         if (getFragmentManager() != null) {

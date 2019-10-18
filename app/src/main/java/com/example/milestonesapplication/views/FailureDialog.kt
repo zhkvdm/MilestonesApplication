@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import com.example.milestonesapplication.interfaces.FailureDialogInterface
 import com.example.milestonesapplication.R
 import com.example.milestonesapplication.databinding.FailureDialogLayoutBinding
+import com.example.milestonesapplication.interfaces.FailureDialogInterface
 
 class FailureDialog : DialogFragment() {
 
@@ -19,18 +19,20 @@ class FailureDialog : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.failure_dialog_layout, container, false)
-        binding.refreshButton.setOnClickListener {
-            this.dismiss()
-            if (activity is FailureDialogInterface) {
-                (activity as FailureDialogInterface).refresh()
-            }
-        }
+        binding.parentView = this
 
         isCancelable = false
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
 
         return binding.root
+    }
+
+    fun refresh() {
+        this.dismiss()
+        if (activity is FailureDialogInterface) {
+            (activity as FailureDialogInterface).refresh()
+        }
     }
 
     companion object {

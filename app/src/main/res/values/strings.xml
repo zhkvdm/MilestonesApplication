@@ -2,7 +2,7 @@
     <string name="app_name">Дорожные камеры</string>
     <string name="title_activity_maps">Карта</string>
     <string name="loading">Загрузка</string>
-    <string name="failure_message">Что-то пошло не так</string>
+    <string name="failure_message">Сервис недоступен</string>
     <string name="refresh">Обновить</string>
     <string name="back">Назад</string>
 
