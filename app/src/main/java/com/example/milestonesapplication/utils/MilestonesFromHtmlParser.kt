@@ -1,7 +1,7 @@
 package com.example.milestonesapplication.utils
 
 import android.text.TextUtils
-import com.example.milestonesapplication.model.Milestone
+import com.example.milestonesapplication.models.Milestone
 import com.google.android.gms.maps.model.LatLng
 import java.util.*
 

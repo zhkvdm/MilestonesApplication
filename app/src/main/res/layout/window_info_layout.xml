@@ -6,7 +6,7 @@
     <data>
         <variable
             name="milestone"
-            type="com.example.milestonesapplication.model.Milestone" />
+            type="com.example.milestonesapplication.models.Milestone" />
         <variable
             name="parentView"
             type="com.example.milestonesapplication.views.InfoWindow" />

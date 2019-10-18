@@ -1,6 +1,6 @@
 package com.example.milestonesapplication.utils
 
-import com.example.milestonesapplication.model.Region
+import com.example.milestonesapplication.models.Region
 import java.util.*
 
 class RegionsFromHtmlParser {

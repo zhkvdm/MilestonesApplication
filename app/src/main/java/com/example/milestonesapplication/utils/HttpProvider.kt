@@ -2,17 +2,16 @@ package com.example.milestonesapplication.utils
 
 import android.app.Activity
 import android.os.AsyncTask
-import com.example.milestonesapplication.model.Milestone
-import com.example.milestonesapplication.model.Region
+import com.example.milestonesapplication.models.Milestone
+import com.example.milestonesapplication.models.Region
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.io.IOException
 import java.util.*
 
-class HttpProvider(code: String) : AsyncTask<Void, Void, Void>() {
+class HttpProvider(private val regionCode: String?) : AsyncTask<Void, Void, Void>() {
     private var milestones = ArrayList<Milestone>()
     private var regions = ArrayList<Region>()
-    private var regionCode = code
 
     private var httpProviderInterface: HttpProviderInterface? = null
 
@@ -32,10 +31,11 @@ class HttpProvider(code: String) : AsyncTask<Void, Void, Void>() {
 
 
         try {
-            doc = if (regionCode == "all")
-                Jsoup.connect("https://гибдд.рф/r/49/milestones").timeout(10 * 2000).get()
-            else
-                Jsoup.connect("https://гибдд.рф/r/$regionCode/milestones").timeout(10 * 2000).get()
+            val url = when (regionCode) {
+                "all" -> "https://гибдд.рф/r/49/milestones"
+                else -> "https://гибдд.рф/r/$regionCode/milestones"
+            }
+            doc = Jsoup.connect(url).timeout(10 * 2000).get()
         } catch (e: IOException) {
             httpProviderInterface?.onTaskPostExecute(0)
             e.printStackTrace()
@@ -43,7 +43,7 @@ class HttpProvider(code: String) : AsyncTask<Void, Void, Void>() {
 
         if (doc != null) {
             regions = RegionsFromHtmlParser().parse(doc.html())
-            if(regionCode != "all")
+            if (regionCode != "all")
                 milestones = MilestonesFromHtmlParser().parse(doc.html())
         } else {
             httpProviderInterface?.onTaskPostExecute(0)
