@@ -18,12 +18,14 @@ class FailureDialog : DialogFragment() {
     private lateinit var binding: FailureDialogLayoutBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.failure_dialog_layout, container, false)
+        binding = FailureDialogLayoutBinding.inflate(inflater)
         binding.parentView = this
 
         isCancelable = false
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        dialog?.window?.apply {
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            requestFeature(Window.FEATURE_NO_TITLE)
+        }
 
         return binding.root
     }

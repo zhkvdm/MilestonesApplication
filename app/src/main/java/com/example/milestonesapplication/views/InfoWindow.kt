@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import com.example.milestonesapplication.R
 import com.example.milestonesapplication.databinding.WindowInfoLayoutBinding
 import com.example.milestonesapplication.models.Milestone
@@ -32,11 +30,10 @@ class InfoWindow : DialogFragment(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val args = arguments
-        if (args != null) {
-            name = args.getString(ARG_NAME)
-            description = args.getString(ARG_DESCRIPTION)
-            location = args.getParcelable(ARG_LOCATION)
+        arguments?.let {
+            name = it.getString(ARG_NAME)
+            description = it.getString(ARG_DESCRIPTION)
+            location = it.getParcelable(ARG_LOCATION)
         }
     }
 
@@ -45,10 +42,9 @@ class InfoWindow : DialogFragment(), OnMapReadyCallback {
         binding.milestone = Milestone(name!!, description!!, location!!)
         binding.parentView = this
 
-        val mapFragment: SupportMapFragment? = fragmentManager?.findFragmentById(R.id.map_info_window) as SupportMapFragment?
-        if (mapFragment == null) {
-            return null
-        }
+        val mapFragment: SupportMapFragment =
+                fragmentManager?.findFragmentById(R.id.map_info_window) as SupportMapFragment?
+                ?: return null
         mapFragment.getMapAsync(this)
 
         return binding.root
@@ -56,9 +52,9 @@ class InfoWindow : DialogFragment(), OnMapReadyCallback {
 
     override fun onStart() {
         super.onStart()
-        val width = ViewGroup.LayoutParams.MATCH_PARENT
-        val height = ViewGroup.LayoutParams.MATCH_PARENT
-        dialog?.window?.setLayout(width, height)
+        dialog?.window?.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT)
     }
 
     override fun onDestroyView() {
@@ -73,23 +69,20 @@ class InfoWindow : DialogFragment(), OnMapReadyCallback {
     }
 
     private fun setGoogleMap() {
-        googleMap.let {
-            it.addMarker(MarkerOptions().position(location!!))
-            it.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
-            it.uiSettings.isZoomControlsEnabled = false
-            it.uiSettings.isZoomGesturesEnabled = false
-            it.uiSettings.isScrollGesturesEnabled = false
-            it.uiSettings.isRotateGesturesEnabled = false
-            it.uiSettings.isMapToolbarEnabled = false
+        googleMap.apply {
+            addMarker(MarkerOptions().position(location!!))
+            moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
+            uiSettings.isZoomControlsEnabled = false
+            uiSettings.isZoomGesturesEnabled = false
+            uiSettings.isScrollGesturesEnabled = false
+            uiSettings.isRotateGesturesEnabled = false
+            uiSettings.isMapToolbarEnabled = false
         }
     }
 
     companion object {
-        val TAG = InfoWindow::class.java.name
-
-        fun newInstance(name: String,
-                        description: String,
-                        location: LatLng): InfoWindow {
+        @JvmStatic
+        fun newInstance(name: String, description: String, location: LatLng): InfoWindow {
             val fragment = InfoWindow()
             val args = Bundle()
             args.putString(ARG_NAME, name)
@@ -98,5 +91,8 @@ class InfoWindow : DialogFragment(), OnMapReadyCallback {
             fragment.arguments = args
             return fragment
         }
+
+        @JvmField
+        val TAG = InfoWindow::class.java.name
     }
 }

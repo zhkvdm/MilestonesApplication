@@ -18,11 +18,13 @@ class WaitDialog : DialogFragment() {
     private lateinit var binding: WaitDialogLayoutBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.wait_dialog_layout, container, false)
+        binding = WaitDialogLayoutBinding.inflate(inflater)
 
         isCancelable = false
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        dialog?.window?.apply {
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            requestFeature(Window.FEATURE_NO_TITLE)
+        }
 
         return binding.root
     }

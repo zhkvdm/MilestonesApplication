@@ -10,7 +10,8 @@ import com.example.milestonesapplication.R
 import kotlinx.android.synthetic.main.spinner_row_layout.view.*
 
 
-class SpinnerAdapter(context: Context, resource: Int, objects: MutableList<Region>) : ArrayAdapter<Region>(context, resource, objects) {
+class SpinnerAdapter(context: Context, resource: Int, objects: MutableList<Region>) :
+        ArrayAdapter<Region>(context, resource, objects) {
 
     var regions: MutableList<Region> = objects
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)

@@ -29,7 +29,6 @@ class HttpProvider(private val regionCode: String?) : AsyncTask<Void, Void, Void
     override fun doInBackground(vararg p0: Void?): Void? {
         var doc: Document? = null
 
-
         try {
             val url = when (regionCode) {
                 "all" -> "https://гибдд.рф/r/49/milestones"
