@@ -6,7 +6,7 @@
     <data>
         <variable
             name="parentView"
-            type="com.example.milestonesapplication.activities.MainActivity" />
+            type="com.example.milestonesapplication.activities.MainView" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +42,7 @@
             android:background="@drawable/rounded_background"
             android:visibility="invisible"
             android:contentDescription="@string/refresh"
-            android:onClick="@{(view) -> parentView.refresh()}"
+
             app:layout_constraintTop_toBottomOf="@+id/spinner"
             app:layout_constraintRight_toRightOf="parent" />
 

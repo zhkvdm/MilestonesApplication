@@ -72,11 +72,13 @@ class InfoWindow : DialogFragment(), OnMapReadyCallback {
         googleMap.apply {
             addMarker(MarkerOptions().position(location!!))
             moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
-            uiSettings.isZoomControlsEnabled = false
-            uiSettings.isZoomGesturesEnabled = false
-            uiSettings.isScrollGesturesEnabled = false
-            uiSettings.isRotateGesturesEnabled = false
-            uiSettings.isMapToolbarEnabled = false
+            uiSettings.apply {
+                isZoomControlsEnabled = false
+                isZoomGesturesEnabled = false
+                isScrollGesturesEnabled = false
+                isRotateGesturesEnabled = false
+                isMapToolbarEnabled = false
+            }
         }
     }
 

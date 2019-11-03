@@ -7,9 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import com.example.milestonesapplication.R
 import com.example.milestonesapplication.databinding.FailureDialogLayoutBinding
 import com.example.milestonesapplication.interfaces.FailureDialogInterface
 
@@ -33,7 +31,7 @@ class FailureDialog : DialogFragment() {
     fun refresh() {
         this.dismiss()
         if (activity is FailureDialogInterface) {
-            (activity as FailureDialogInterface).refresh()
+            (activity as FailureDialogInterface).onRefreshClick()
         }
     }
 

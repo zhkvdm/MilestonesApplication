@@ -1,7 +1,7 @@
 package com.example.milestonesapplication.utils
 
-import android.app.Activity
 import android.os.AsyncTask
+import com.example.milestonesapplication.interfaces.DataLoadInterface
 import com.example.milestonesapplication.models.Milestone
 import com.example.milestonesapplication.models.Region
 import org.jsoup.Jsoup
@@ -9,21 +9,14 @@ import org.jsoup.nodes.Document
 import java.io.IOException
 import java.util.*
 
-class HttpProvider(private val regionCode: String?) : AsyncTask<Void, Void, Void>() {
+class HttpProvider(
+        private var dataLoadInterface: DataLoadInterface) : AsyncTask<Void, Void, Void>() {
     private var milestones = ArrayList<Milestone>()
     private var regions = ArrayList<Region>()
+    private var regionCode: String? = null
 
-    private var httpProviderInterface: HttpProviderInterface? = null
-
-    fun setDelegate(activity: Activity) {
-        if (activity is HttpProviderInterface)
-            httpProviderInterface = activity
-    }
-
-    interface HttpProviderInterface {
-        fun onTaskPostExecute(result: Int)
-
-        fun onTaskPostExecute(regions: ArrayList<Region>, milestones: ArrayList<Milestone>)
+    fun setRegion(regionCode: String) {
+        this.regionCode = regionCode
     }
 
     override fun doInBackground(vararg p0: Void?): Void? {
@@ -36,7 +29,7 @@ class HttpProvider(private val regionCode: String?) : AsyncTask<Void, Void, Void
             }
             doc = Jsoup.connect(url).timeout(10 * 2000).get()
         } catch (e: IOException) {
-            httpProviderInterface?.onTaskPostExecute(0)
+            dataLoadInterface.onErrorDataLoad()
             e.printStackTrace()
         }
 
@@ -45,7 +38,7 @@ class HttpProvider(private val regionCode: String?) : AsyncTask<Void, Void, Void
             if (regionCode != "all")
                 milestones = MilestonesFromHtmlParser().parse(doc.html())
         } else {
-            httpProviderInterface?.onTaskPostExecute(0)
+            dataLoadInterface.onErrorDataLoad()
         }
 
         return null
@@ -53,7 +46,7 @@ class HttpProvider(private val regionCode: String?) : AsyncTask<Void, Void, Void
 
     override fun onPostExecute(result: Void?) {
         super.onPostExecute(result)
-        httpProviderInterface?.onTaskPostExecute(regions, milestones)
+        dataLoadInterface.onDataLoaded(regions, milestones)
     }
 
 }
